@@ -1,65 +1,117 @@
 import cv2
 import mediapipe as mp
 
-# Initialize MediaPipe Hands
-mp_hands = mp.solutions.hands
-mp_draw = mp.solutions.drawing_utils
+# Create the MediaPipe Hand Landmarker
+BaseOptions = mp.tasks.BaseOptions
+HandLandmarker = mp.tasks.vision.HandLandmarker
+HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
+VisionRunningMode = mp.tasks.vision.RunningMode
 
-hands = mp_hands.Hands(
-    max_num_hands=2,
-    min_detection_confidence=0.5,
+options = HandLandmarkerOptions(
+    base_options=BaseOptions(
+        model_asset_path="hand_landmarker.task"
+    ),
+    running_mode=VisionRunningMode.IMAGE,
+    num_hands=2,
+    min_hand_detection_confidence=0.5,
+    min_hand_presence_confidence=0.5,
     min_tracking_confidence=0.5
 )
 
-# Open laptop webcam
+# Open laptop camera
 cap = cv2.VideoCapture(0)
 
-while True:
+with HandLandmarker.create_from_options(options) as landmarker:
 
-    success, frame = cap.read()
+    while True:
 
-    if not success:
-        print("Could not access camera")
-        break
+        success, frame = cap.read()
 
-    # OpenCV: BGR
-    # MediaPipe: RGB
-    rgb_frame = cv2.cvtColor(
-        frame,
-        cv2.COLOR_BGR2RGB
-    )
+        if not success:
+            print("Could not access camera")
+            break
 
-    # Detect hands
-    results = hands.process(rgb_frame)
+        # Convert BGR → RGB
+        rgb_frame = cv2.cvtColor(
+            frame,
+            cv2.COLOR_BGR2RGB
+        )
 
-    # If hand detected
-    if results.multi_hand_landmarks:
+        # Convert OpenCV image to MediaPipe image
+        mp_image = mp.Image(
+            image_format=mp.ImageFormat.SRGB,
+            data=rgb_frame
+        )
 
-        print("✋ HAND DETECTED")
+        # Detect hands
+        result = landmarker.detect(mp_image)
 
-        for hand_landmarks in results.multi_hand_landmarks:
+        # Draw detected landmarks
+        if result.hand_landmarks:
 
-            # Draw 21 hand landmarks
-            mp_draw.draw_landmarks(
-                frame,
-                hand_landmarks,
-                mp_hands.HAND_CONNECTIONS
-            )
+            print("✋ HAND DETECTED")
 
-    else:
+            for hand in result.hand_landmarks:
 
-        print("Searching for hand...")
+                # Draw connections
+                connections = [
+                    (0,1), (1,2), (2,3), (3,4),
+                    (0,5), (5,6), (6,7), (7,8),
+                    (5,9), (9,10), (10,11), (11,12),
+                    (9,13), (13,14), (14,15), (15,16),
+                    (13,17), (17,18), (18,19), (19,20),
+                    (0,17)
+                ]
 
-    # Display camera
-    cv2.imshow(
-        "GestureBridge - Hand Detection",
-        frame
-    )
+                # Draw lines
+                for start, end in connections:
 
-    # Press Q to quit
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
+                    x1 = int(hand[start].x * frame.shape[1])
+                    y1 = int(hand[start].y * frame.shape[0])
 
+                    x2 = int(hand[end].x * frame.shape[1])
+                    y2 = int(hand[end].y * frame.shape[0])
+
+                    cv2.line(
+                        frame,
+                        (x1, y1),
+                        (x2, y2),
+                        (255, 0, 255),
+                        2
+                    )
+
+                # Draw points
+                for landmark in hand:
+
+                    x = int(
+                        landmark.x * frame.shape[1]
+                    )
+
+                    y = int(
+                        landmark.y * frame.shape[0]
+                    )
+
+                    cv2.circle(
+                        frame,
+                        (x, y),
+                        5,
+                        (0, 255, 255),
+                        -1
+                    )
+
+        else:
+
+            print("Searching for hand...")
+
+        # Display camera
+        cv2.imshow(
+            "GestureBridge - Real Hand Detection",
+            frame
+        )
+
+        # Press Q to quit
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
 
 cap.release()
 cv2.destroyAllWindows()
