@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GestureBridge - Sign Language to Sentence Translator</title>
+  <meta name="description" content="AI-Powered Sign Language to Sentence Translator bridging communication gaps in real-time.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Background Gradients -->
+  <div class="bg-gradient-mesh"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo-wrapper" onclick="navigateTo('landing')">
+        <!-- Temporary logo representation until copied, or styled CSS box -->
+        <div id="logo-icon-box" style="width:40px; height:40px; background:linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; border:1px solid rgba(255,255,255,0.2)">
+          <i class="fa-solid fa-hand-holding-hand"></i>
+        </div>
+        <span class="logo-text">GestureBridge</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a class="nav-link active" id="nav-landing" onclick="navigateTo('landing')">Home</a></li>
+          <li><a class="nav-link" id="nav-dashboard" onclick="navigateTo('dashboard')">Dashboard</a></li>
+          <li><a class="nav-link" id="nav-chat" onclick="navigateTo('chat')">AI Assist</a></li>
+          <li><a class="nav-link" id="nav-analytics" onclick="navigateTo('analytics')">Analytics</a></li>
+          <li><a class="nav-link" id="nav-future" onclick="navigateTo('future')">Future Scope</a></li>
+          <li><button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button></li>
+          <li><button class="nav-btn" onclick="navigateTo('dashboard')"><i class="fa-solid fa-play"></i> Start Translating</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== PAGE: LANDING ==================== -->
+  <main class="container">
+    
+    <section id="landing-page" class="page-section active">
+      <div class="hero-section">
+        <div class="hero-content">
+          <span class="hero-tagline">Bridging Gestures to Meaningful Conversations</span>
+          <h1>GestureBridge</h1>
+          <p class="hero-description">
+            GestureBridge removes communication barriers by translating sign language into meaningful text in real time, enabling inclusive communication across healthcare, education, public services, workplaces, and everyday interactions.
+          </p>
+          <div class="hero-ctas">
+            <button class="btn-primary" onclick="navigateTo('dashboard')">Start Translation <i class="fa-solid fa-play"></i></button>
+            <button class="btn-secondary" onclick="simulateDemoFlow()">View Demo <i class="fa-solid fa-circle-play"></i></button>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <div class="hero-image-container">
+            <img src="assets/hero_doctor_patient.jpg" alt="Deaf individual communicating with a doctor using GestureBridge" class="hero-img-bg">
+            <div class="glass-overlay-label">
+              <span class="glowing-dot"></span> Live Translation Ecosystem
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Highlights Section -->
+      <div class="section-title-wrapper">
+        <h2>Features & Technical Highlights</h2>
+        <p>Harnessing advanced client-side vision and NLP for seamless communication</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-hand-sparkles"></i>
+          </div>
+          <h3>AI Gesture Recognition</h3>
+          <p>Real-time hand landmark tracking and gesture parsing via high-fidelity joint coordination meshes.</p>
+        </div>
+        
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3>Real-Time Translation</h3>
+          <p>Sub-100ms pipeline transforming hand coordinates into text tokens instantly as you sign.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <h3>Natural Language Generation</h3>
+          <p>Converting disconnected gesture vectors into grammatically correct and fluid English sentences.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-chrome"></i>
+          </div>
+          <h3>Browser-Based</h3>
+          <p>Run full spatial AI calculations directly in the browser. Zero software installations required.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-video-slash"></i>
+          </div>
+          <h3>No Wearable Hardware</h3>
+          <p>Works with a basic built-in laptop camera or web camera. No expensive haptic gloves or trackers.</p>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-circle-nodes"></i>
+          </div>
+          <h3>Accessible Anywhere</h3>
+          <p>Built for mobile, tablet, and desktop viewports, optimizing inclusive access in any environment.</p>
+        </div>
+      </div>
+
+      <!-- Tech badges Section -->
+      <div class="tech-section">
+        <h2>Technology Integration Stack</h2>
+        <div class="tech-badges-container">
+          <span class="tech-badge"><i class="fa-brands fa-react" style="color:#61dafb"></i> React.js</span>
+          <span class="tech-badge"><i class="fa-solid fa-wave-square" style="color:#10b981"></i> MediaPipe Hands</span>
+          <span class="tech-badge"><i class="fa-solid fa-gears" style="color:#ff6f00"></i> TensorFlow Lite</span>
+          <span class="tech-badge"><i class="fa-solid fa-network-wired" style="color:#3b82f6"></i> Socket.IO WebSockets</span>
+          <span class="tech-badge"><i class="fa-solid fa-bolt" style="color:#009688"></i> FastAPI Back-end</span>
+          <span class="tech-badge"><i class="fa-solid fa-microchip" style="color:#8b5cf6"></i> NLP Sentence Restructuring</span>
+          <span class="tech-badge"><i class="fa-solid fa-volume-high" style="color:#06b6d4"></i> SpeechSynthesis TTS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE: TRANSLATION DASHBOARD ==================== -->
+    <section id="dashboard-page" class="page-section">
+      <div class="dashboard-grid">
+        
+        <!-- Left Column: Camera Feed & Output Panels -->
+        <div class="left-main-panel">
+          <div class="glass-card camera-card">
+            <div class="camera-header">
+              <h3><i class="fa-solid fa-video"></i> Sign Language Capture Feed</h3>
+              <div style="display: flex; gap: 0.75rem;">
+                <div class="status-badge" id="camera-status-badge">
+                  <span class="status-dot"></span>
+                  <span id="camera-status-text">Camera Inactive</span>
+                </div>
+                <div class="status-badge" id="sign-status-badge">
+                  <span class="status-dot"></span>
+                  <span id="sign-status-text">Searching Hand...</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="feed-container">
+              <!-- Live Video -->
+              <video id="webcam" class="webcam-video" autoplay playsinline muted></video>
+              <!-- Overlay Canvas for Hand Landmark Mesh -->
+              <canvas id="landmarks-canvas" class="landmarks-canvas"></canvas>
+              
+              <!-- Camera activation overlay -->
+              <div class="camera-placeholder" id="camera-placeholder">
+                <i class="fa-solid fa-camera-rotate" style="font-size: 3rem; color: var(--text-muted);"></i>
+                <p style="color: var(--text-secondary); text-align: center;">Webcam Feed is currently inactive.<br>Enable webcam to start real-time tracking.</p>
+                <button class="camera-btn" onclick="startWebcam()"><i class="fa-solid fa-power-off"></i> Enable Webcam</button>
+              </div>
+            </div>
+            
+            <div class="camera-controls">
+              <div class="stat-group">
+                <span class="stat-label">Tracking Engine</span>
+                <span class="stat-value" style="color: var(--accent-cyan);"><i class="fa-solid fa-microchip"></i> MediaPipe v0.10</span>
+              </div>
+              <div class="stat-group">
+                <span class="stat-label">Frame Rate (FPS)</span>
+                <span class="stat-value" id="fps-value">0 FPS</span>
+              </div>
+              <div class="stat-group">
+                <span class="stat-label">Model Target Dataset</span>
+                <span class="stat-value" style="color: var(--secondary);"><i class="fa-solid fa-book-atlas"></i> ISL Vocabulary V1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Predefined Gestures Simulator Card -->
+          <div class="glass-card demo-triggers-card">
+            <h3><i class="fa-solid fa-keyboard"></i> Sign Language Simulation Panel (Investor Demo)</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+              Click any of the common ISL words below to simulate the hand skeletal landmarker performing the gesture, tracking the stream, and parsing it through our NLP engine:
+            </p>
+            <div class="demo-triggers-grid">
+              <button class="demo-btn" onclick="simulateGesture('hello')">"HELLO" (Greeting)</button>
+              <button class="demo-btn" onclick="simulateGesture('thank_you')">"THANK YOU" (Politeness)</button>
+              <button class="demo-btn" onclick="simulateGesture('please')">"PLEASE" (Politeness)</button>
+              <button class="demo-btn" onclick="simulateGesture('help')">"HELP" (Emergency)</button>
+              <button class="demo-btn" onclick="simulateGesture('medicine')">"MEDICINE" (Healthcare)</button>
+              <button class="demo-btn" onclick="simulateGesture('need_water')">"WATER" (Everyday)</button>
+              <button class="demo-btn" onclick="simulateGesture('goodbye')">"GOODBYE" (Farewell)</button>
+            </div>
+          </div>
+
+          <!-- Real-Time Translations Container -->
+          <div class="glass-card output-card">
+            <div class="output-header-row">
+              <div class="output-header-title">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h3>AI Translation Engine Output</h3>
+              </div>
+              <div class="processing-animation-wrapper hidden" id="processing-animation">
+                <span class="pulse-ring"></span>
+                <span class="pulse-text">AI Restructuring...</span>
+              </div>
+            </div>
+            
+            <div class="output-container">
+              <div class="output-subcard">
+                <span class="subcard-title">Recognized Gesture / Tokens</span>
+                <div class="gesture-stream" id="gesture-stream-output">---</div>
+                <div class="stat-badge-small" id="gesture-token-display">None</div>
+              </div>
+              <div class="output-subcard" style="border-color: rgba(139, 92, 246, 0.2);">
+                <span class="subcard-title" style="color: #a78bfa;">Generated English Sentence</span>
+                <div class="sentence-result" id="sentence-result-output">Awaiting translation...</div>
+                
+                <div class="ai-confidence-container">
+                  <span class="confidence-label">AI Confidence Meter</span>
+                  <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.25rem;">
+                    <div class="confidence-bar-container" style="flex-grow:1; width:auto; margin-top:0;">
+                      <div class="confidence-bar-fill" id="sentence-confidence-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="confidence-percentage" id="sentence-confidence-value">0%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action buttons: Speak, Copy, Save, Clear -->
+            <div class="output-actions">
+              <button class="action-btn speak" id="btn-action-speak" onclick="speakCurrentSentence()"><i class="fa-solid fa-volume-high"></i> Speak</button>
+              <button class="action-btn copy" id="btn-action-copy" onclick="copyTranslation()"><i class="fa-solid fa-copy"></i> Copy</button>
+              <button class="action-btn save" id="btn-action-save" onclick="saveTranslation()"><i class="fa-solid fa-bookmark"></i> Save</button>
+              <button class="action-btn clear" id="btn-action-clear" onclick="clearTranslation()"><i class="fa-solid fa-trash-can"></i> Clear</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Sidebar (TTS Controls + History Log) -->
+        <div class="right-sidebar">
+          
+          <!-- Voice Output Controls -->
+          <div class="glass-card voice-card">
+            <h3><i class="fa-solid fa-volume-high"></i> Voice Output Module</h3>
+            <div class="voice-settings-grid">
+              <div class="setting-slider-group">
+                <div class="slider-labels">
+                  <span>Speech Rate</span>
+                  <span id="rate-val-label">1.0x</span>
+                </div>
+                <input type="range" id="speech-rate" min="0.5" max="2" step="0.1" value="1.0" oninput="updateSpeechSetting('rate', this.value)">
+              </div>
+              
+              <div class="setting-slider-group">
+                <div class="slider-labels">
+                  <span>Speech Volume</span>
+                  <span id="volume-val-label">80%</span>
+                </div>
+                <input type="range" id="speech-volume" min="0" max="1" step="0.1" value="0.8" oninput="updateSpeechSetting('volume', this.value)">
+              </div>
+              
+              <div class="speak-btn-wrapper">
+                <button class="btn-speak" onclick="speakCurrentSentence()"><i class="fa-solid fa-play"></i> Play Translation Aloud</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Translation History panel -->
+          <div class="glass-card history-card">
+            <h3><i class="fa-solid fa-history"></i> Session History</h3>
+            <div class="history-list" id="history-list-container">
+              <!-- Dynamically populated or mock items -->
+              <div class="history-item">
+                <div class="history-meta">
+                  <span class="history-time">10 mins ago</span>
+                  <span class="history-accuracy">94.8% accuracy</span>
+                </div>
+                <div class="history-gestures">G-E-S-T-U-R-E -> HELLO</div>
+                <div class="history-sentence-row">
+                  <span class="history-sentence">"Hello there, how are you?"</span>
+                  <button class="history-action-btn" onclick="speakText('Hello there, how are you?')"><i class="fa-solid fa-volume-up"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PAGE: TWO-WAY CHAT ==================== -->
+    <section id="chat-page" class="page-section">
+      <div class="chat-split-container">
+        
+        <!-- Left Side: Live Sign Recognition Feed -->
+        <div class="chat-left-feed glass-card">
+          <div class="chat-feed-header">
+            <h3><i class="fa-solid fa-hand-sparkles"></i> Live Sign Recognition</h3>
+            <div class="status-badge" id="chat-cam-status">
+              <span class="status-dot"></span>
+              <span id="chat-cam-status-text">Inactive</span>
+            </div>
+          </div>
+          
+          <div class="chat-video-container">
+            <video id="chat-webcam" class="webcam-video" autoplay playsinline muted></video>
+            <canvas id="chat-landmarks-canvas" class="landmarks-canvas"></canvas>
+            
+            <div class="chat-camera-placeholder" id="chat-camera-placeholder">
+              <i class="fa-solid fa-video-slash" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+              <p style="color: var(--text-secondary); text-align: center; font-size: 0.9rem;">Webcam stream is inactive.<br>Activate camera on the Dashboard page to mirror live feed here.</p>
+            </div>
+          </div>
+
+          <div class="chat-feed-stats">
+            <div class="feed-stat-row">
+              <span>Dynamic Translation</span>
+              <strong id="chat-detected-gesture" style="color: var(--accent-cyan);">AWAITING SIGN</strong>
+            </div>
+            <div class="feed-stat-row">
+              <span>Confidence</span>
+              <strong id="chat-detected-confidence" style="color: var(--accent-green);">0%</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Conversation Assistant -->
+        <div class="chat-right-assistant glass-card">
+          <div class="chat-header">
+            <div class="chat-info">
+              <h3><i class="fa-solid fa-comments-accessibility"></i> Conversation Assistant</h3>
+              <p>Facilitates dialogues between deaf and hearing users with real-time NLP.</p>
+            </div>
+          </div>
+          
+          <!-- Timeline -->
+          <div class="chat-timeline" id="chat-timeline-container">
+            <div class="chat-message deaf">
+              <div class="message-bubble">
+                Hello, I am using GestureBridge to translate my signs. Nice to meet you.
+              </div>
+              <div class="message-meta">
+                <span>Sign Language (Deaf User)</span> &bull; <span>12:40 PM</span> &bull; 
+                <button class="message-speak-btn" onclick="speakText('Hello, I am using GestureBridge to translate my signs. Nice to meet you.')"><i class="fa-solid fa-volume-up"></i> Speak</button>
+              </div>
+            </div>
+            
+            <div class="chat-message hearing">
+              <div class="message-bubble">
+                Hello! This is an amazing application. It is very easy to read what you are saying.
+              </div>
+              <div class="message-meta">
+                <span>Hearing User (Typed)</span> &bull; <span>12:41 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Smart Quick Responses Panel -->
+          <div class="quick-responses-panel">
+            <span class="quick-responses-title"><i class="fa-solid fa-bolt"></i> Smart Quick Responses</span>
+            <div class="quick-responses-grid">
+              <button class="quick-btn" onclick="sendQuickResponse('Please wait')">Please wait</button>
+              <button class="quick-btn" onclick="sendQuickResponse('Follow me')">Follow me</button>
+              <button class="quick-btn" onclick="sendQuickResponse('Take this medicine')">Take this medicine</button>
+              <button class="quick-btn" onclick="sendQuickResponse('Please sign again')">Please sign again</button>
+              <button class="quick-btn" onclick="sendQuickResponse('I understand')">I understand</button>
+              <button class="quick-btn" onclick="sendQuickResponse('Thank you')">Thank you</button>
+            </div>
+          </div>
+          
+          <!-- Chat input -->
+          <div class="chat-footer">
+            <div class="chat-input-wrapper">
+              <input type="text" id="chat-typed-input" class="chat-input" placeholder="Hearing user: type here and press Enter to reply..." onkeypress="handleChatKeyPress(event)">
+            </div>
+            <button class="chat-send-btn" onclick="sendHearingMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PAGE: ANALYTICS ==================== -->
+    <section id="analytics-page" class="page-section">
+      <!-- Top Overview Stats -->
+      <div class="analytics-summary-grid">
+        <div class="glass-card summary-card">
+          <div class="summary-icon blue">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <div class="summary-info">
+            <h4 id="stat-total-translations">1,248</h4>
+            <p>Total Translations</p>
+          </div>
+        </div>
+        
+        <div class="glass-card summary-card">
+          <div class="summary-icon purple">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="summary-info">
+            <h4>96.2%</h4>
+            <p>Average Accuracy</p>
+          </div>
+        </div>
+        
+        <div class="glass-card summary-card">
+          <div class="summary-icon cyan">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="summary-info">
+            <h4>14 min</h4>
+            <p>Avg Session Duration</p>
+          </div>
+        </div>
+        
+        <div class="glass-card summary-card">
+          <div class="summary-icon green">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <div class="summary-info">
+            <h4>18</h4>
+            <p>Unique Custom Gestures</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="analytics-charts-grid">
+        <!-- Main Line Chart (Translations & Accuracy over time) -->
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <h3>Translation Activity (Last 7 Days)</h3>
+            <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-calendar-days"></i> Updated Live</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="activityLineChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Most Frequently Used Gestures list -->
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <h3>Frequent Signs Detected</h3>
+          </div>
+          <div class="frequent-gestures-list">
+            <div class="gesture-row">
+              <div class="gesture-row-name">
+                <span class="gesture-token">HELLO</span>
+                <span>Greeting</span>
+              </div>
+              <div class="gesture-row-stats">
+                <span class="gesture-count">482 times</span>
+                <span class="gesture-perc">38.6%</span>
+              </div>
+            </div>
+            
+            <div class="gesture-row">
+              <div class="gesture-row-name">
+                <span class="gesture-token">THANK YOU</span>
+                <span>Politeness</span>
+              </div>
+              <div class="gesture-row-stats">
+                <span class="gesture-count">312 times</span>
+                <span class="gesture-perc">25.0%</span>
+              </div>
+            </div>
+
+            <div class="gesture-row">
+              <div class="gesture-row-name">
+                <span class="gesture-token">HELP</span>
+                <span>Urgent</span>
+              </div>
+              <div class="gesture-row-stats">
+                <span class="gesture-count">194 times</span>
+                <span class="gesture-perc">15.5%</span>
+              </div>
+            </div>
+
+            <div class="gesture-row">
+              <div class="gesture-row-name">
+                <span class="gesture-token">PLEASE</span>
+                <span>Politeness</span>
+              </div>
+              <div class="gesture-row-stats">
+                <span class="gesture-count">140 times</span>
+                <span class="gesture-perc">11.2%</span>
+              </div>
+            </div>
+
+            <div class="gesture-row">
+              <div class="gesture-row-name">
+                <span class="gesture-token">GOOD BYE</span>
+                <span>Farewell</span>
+              </div>
+              <div class="gesture-row-stats">
+                <span class="gesture-count">120 times</span>
+                <span class="gesture-perc">9.6%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE: FUTURE SCOPE ==================== -->
+    <section id="future-page" class="page-section">
+      <div class="future-scope-intro">
+        <h2>Expanding the Horizons of Communication</h2>
+        <p style="margin-top: 1rem;">GestureBridge aims to become an ubiquitous translation engine embedded in everyday digital networks and physical kiosks.</p>
+      </div>
+
+      <div class="future-grid">
+        <!-- Card 1 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <h3>Mobile App Integration</h3>
+          <p>Custom native iOS & Android applications with lightweight on-device neural nets, running sign translation locally without active cellular connection.</p>
+          <span class="future-tag">Q4 2026</span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-hospital-user"></i></div>
+          <h3>Healthcare Kiosks</h3>
+          <p>Assisting clinical environments and emergency rooms by enabling medical staff to immediately comprehend deaf patients' signs when human translators are unavailable.</p>
+          <span class="future-tag">Clinical Trials</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3>Public Service Kiosks</h3>
+          <p>Embedding translation cameras in ticket stations, airport check-ins, and information helpdesks to offer accessibility assistance in public nodes.</p>
+          <span class="future-tag">Government R&D</span>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-video-slash"></i></div>
+          <h3>Video Conferencing API</h3>
+          <p>SDK and browser extensions for Zoom, Google Meet, and Microsoft Teams to auto-transcribe deaf presenters directly into caption lines in real-time.</p>
+          <span class="future-tag">Beta Phase</span>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <h3>Multilingual Support</h3>
+          <p>Bridging signs directly to multi-language transcripts (e.g. translating American Sign Language to French, Spanish, or Hindi sentences).</p>
+          <span class="future-tag">In Development</span>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="glass-card future-card">
+          <div class="future-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+          <h3>B2B Customer Support</h3>
+          <p>Enabling retail assistants, banking tellers, and hotels to integrate translation portals inside their standard POS systems to accommodate all client requirements.</p>
+          <span class="future-tag">Concept Design</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="text-align: center; padding: 3rem 0; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; margin-top: 4rem;">
+    <p>&copy; 2026 GestureBridge. Accessibility-First Hackathon Project. All rights reserved.</p>
+  </footer>
+
+  <!-- Load Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Load Main Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
